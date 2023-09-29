@@ -50,7 +50,7 @@ const PickupCalendar = ({ session, profile }) => {
 
   useEffect(() => {
     setTailwindEvents(convertToTailwindCalData(events, currentDate));
-  }, [events])
+  }, [events, currentDate])
 
   useEffect(() => {
     setSelectedDay(tailwindEvents.find((day) => day.isSelectedDay))
