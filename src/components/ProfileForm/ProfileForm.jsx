@@ -1,4 +1,3 @@
-import { UserCircleIcon, PhotoIcon } from '@heroicons/react/24/outline'
 import { Container } from '../Container'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -55,7 +54,7 @@ const ProfileForm = (props) => {
     setLocationValue(profile.tennis_location);
     setRatingsValue(profile.tennis_rating);
     reset(profile)
-  }, [profile, selectOptions, session])
+  }, [profile, selectOptions, session, reset])
 
   useEffect(() => {}, [ratingsValue])
 

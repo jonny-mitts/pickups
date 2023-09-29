@@ -265,7 +265,7 @@ const DayCalendar = (props) => {
                   const { description, time, correctedStart } = d
 
                   return (
-                    <li className="relative mt-px flex" style={getUnits(d)}>
+                    <li className="relative mt-px flex" style={getUnits(d)} key={`event-${d.id}`}>
                       <a
                         href="#"
                         className="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100"

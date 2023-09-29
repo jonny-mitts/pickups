@@ -80,7 +80,7 @@ export default function Slideover({
   useEffect(() => {
     
     reset(selectedEvent)
-  }, [selectedEvent])
+  }, [selectedEvent, reset])
 
 
 
