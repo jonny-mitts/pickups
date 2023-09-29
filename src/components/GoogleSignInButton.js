@@ -1,7 +1,7 @@
-import Image from 'next/image'
-import { signIn } from 'next-auth/react'
+import Image from 'next/image';
+import { signIn } from 'next-auth/react';
 
-export default GoogleSignInButton = () => {
+const GoogleSignInButton = (props) => {
   return (
     <button
       onClick={() => signIn('google')}
@@ -14,3 +14,7 @@ export default GoogleSignInButton = () => {
     </button>
   )
 }
+
+GoogleSignInButton.displayName = 'GoogleSignInButton';
+
+export default GoogleSignInButton;
