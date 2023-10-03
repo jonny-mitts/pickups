@@ -56,6 +56,7 @@ const getDateObject = ({ y, m, d, args = {} }) => {
 }
 
 const getEmptyDays = (offset, d) => {
+  console.log("🚀 ~ file: databaseUtils.js:59 ~ getEmptyDays ~ offset, d:", offset, d)
   const date = moment(d)
   const numberOfDays = date.daysInMonth()
   const y = date.year()
@@ -88,7 +89,8 @@ export const resetSelectedDay = (data, d) => {
 }
 
 const getDaysInMonth = (month, year) => {
-    return new Date(year, month, 0).getDate();
+  const dim = new Date(year, month + 1, 0).getDate();
+  return dim
 }
  
 
@@ -97,6 +99,7 @@ export const convertToTailwindCalData = (
 ) => {
   const date = currentDate || new Date()
   const dateMonth = date.getMonth()
+  console.log("🚀 ~ file: databaseUtils.js:102 ~ dateMonth:", dateMonth)
   const dateYear = date.getFullYear()
   const daysInMonth = getDaysInMonth(dateMonth, dateYear)
   const monthIndexArray = []
@@ -107,6 +110,7 @@ export const convertToTailwindCalData = (
     if (i === 0) {
       const firstDayStr = `${dateYear}-${zeroPad(dateMonth + 1)}-01`
       const firstDayIndex = moment(firstDayStr).day()
+      console.log("🚀 ~ file: databaseUtils.js:113 ~ firstDayStr:", firstDayStr,firstDayIndex)
       prefixedDays = [
         ...getEmptyDays(
           firstDayIndex,
@@ -134,6 +138,7 @@ export const convertToTailwindCalData = (
 //   
   
   const parseCorrectDate = (dObj) => {
+    console.log("🚀 ~ file: databaseUtils.js:138 ~ parseCorrectDate ~ dObj:", dObj)
     const dateArray = dObj.toString().split(':')
     const leftStr = dateArray[0].slice(0, -3)
     dateArray[0] = leftStr;
@@ -143,12 +148,13 @@ export const convertToTailwindCalData = (
   data.forEach((day) => {
     
     
+    console.log("🚀 ~ file: databaseUtils.js:148 ~ data.forEach ~ day:", day)
     const correctDate = parseCorrectDate(day.start);
     
     const correctEnd = parseCorrectDate(day.end);
     const d = new Date(correctDate)
-    const mDate = new Date(correctDate);
-    const endD = new Date(correctEnd);
+    const mDate = new Date(day.start);
+    const endD = new Date(day.end);
     const diff = dateDiff.inMinutes(mDate, endD)
     // const diff = endD.diff(mDate, 'minutes');
     

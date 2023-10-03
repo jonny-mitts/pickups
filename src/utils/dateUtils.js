@@ -55,7 +55,18 @@ const yearMonthDateFormat = (d) => {
 }
 
 const ymdAndTime = (d) => {
-    return `${yearMonthDateFormat(d)} ${('0' + d.getHours()).slice(-2)}:${('0' + d.getMinutes()).slice(-2)}`
+    return `${yearMonthDateFormat(d)} ${('0' + d.getHours()).slice(-2)}:${('0' + d.getMinutes()).slice(-2)}:00:000` 
+    // return `${yearMonthDateFormat(d)}T${('0' + (d.getTimezoneOffset()/60)).slice(-2)}:${('0' + d.getHours()).slice(-2)}:${('0' + d.getMinutes()).slice(-2)}:000Z`
 }
 
-export {dateDiff, yearMonthDateFormat, ymdAndTime}
+const nth = (d) => {
+    if (d > 3 && d < 21) return `${d}th`;
+    switch (d % 10) {
+      case 1:  return `${d}st`;
+      case 2:  return `${d}nd`;
+      case 3:  return `${d}rd`;
+      default: return `${d}th`;
+    }
+  };
+
+export {dateDiff, yearMonthDateFormat, ymdAndTime, nth}

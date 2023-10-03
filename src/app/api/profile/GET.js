@@ -1,6 +1,6 @@
 // app/api/pickup/route.js 👈🏽
 
-import Server, { NextResponse } from 'next/server'
+import Server from 'next/server';
 import createConnection from '@/utils/connection';
 
 // To handle a GET request to /api
@@ -17,7 +17,7 @@ export async function GET(req) {
   // simple query
   
   const [rows, fields] = await connection.execute(selectStatement);
-  if(rows){
+  if(rows && rows[0]){
     const {id} = rows[0];
     const [profRows] = await connection.execute(`SELECT * FROM \`pickups_tennis_preferences\` WHERE profile_id='${id}'`);
   }

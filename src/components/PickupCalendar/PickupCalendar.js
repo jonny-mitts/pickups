@@ -93,28 +93,7 @@ const PickupCalendar = ({ session, profile }) => {
     setIsSlideoverOpen(true)
   }
 
-  // const handleSelectEvent = useCallback(
-  //   (data) => {
-  //     setIsSlideoverEdit(false)
-  //     setSelectedEvent(data)
-  //     setIsSlideoverOpen(true)
-  //     if (data?.userId?.toString() === profile?.id?.toString())
-  //       setIsSlideoverEdit(true)
-
-  //     // if( start >= minDate) {
-  //     //   setCurrentDate(start)
-  //     //   setIsSlideoverOpen(true);
-  //     //   // const localTitle = "New Appointment"
-  //     //   // setEvents((prev) => {
-  //     //   //   return [...prev, { start, end, localTitle }]
-
-  //     //   // })
-  //     // }
-  //   },
-  //   [setEvents]
-  // )
-
-  const props = {tailwindEvents, currentDate, setTailwindEvents, setSelectedDay, selectedDay, addEvent}
+  const props = {tailwindEvents, currentDate, setTailwindEvents, setSelectedDay, selectedDay, addEvent, profile}
   
 
   return (

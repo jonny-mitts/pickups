@@ -141,13 +141,28 @@ export default function Slideover({
   }
 
   const getFormattedStringForTimeInput = (date) => {
+    
     try{
-      const dArray = String(date).split(':')
-      const hours = dArray[1]
-      const minutes = dArray[2].split(' ')[0]
-      const dString = `${hours}:${minutes}`
-      return dString
+      if(date){
+        const newDate = new Date(date);
+        const timeOffset = ("0" + newDate.getTimezoneOffset()/60).slice(-2);
+        const splitTimeAndDate = String(newDate).split("T")
+        const withOffset = `${splitTimeAndDate[0]} ${splitTimeAndDate[1]}:00 +${timeOffset}`
+        // const dArray = String(date).split(':')
+        console.log("🚀 ~ file: Slideover.jsx:150 ~ getFormattedStringForTimeInput ~ withOffset:", withOffset)
+        
+        //console.log("🚀 ~ file: Slideover.jsx:149 ~ getFormattedStringForTimeInput ~ dArray:", dArray)
+        // const hours = dArray[1]
+        
+        // const minutes = dArray[2].split(' ')[0]
+        // const dString = `${hours}:${minutes}`
+      }
+      
+
+      // }
+      
     }catch(e){
+      console.error("e:",e);
       return "00:00:00"
     }
     
@@ -155,28 +170,34 @@ export default function Slideover({
 
   const getDatePreparedForDatabase = (date, time) => {
     
-    const d = yearMonthDateFormat(date)
-    const hour = Number(time.split(':')[0])
-    const minute = Number(time.split(':')[1])
-    const argDate = d.setHour( hour ).setMinute(minute)
-    const dateTime = ymdAndTime(argDate); 
-    console.log("🚀 ~ file: Slideover.jsx:163 ~ getDatePreparedForDatabase ~ dateTime:", dateTime)
+    const newDate = new Date(`${date} ${time}`);
     
-      //.format('YYYY-MM-DD  HH:mm:ss.000')
+    console.log("🚀 ~ file: Slideover.jsx:175 ~ getDatePreparedForDatabase ~ newDate:", newDate)
+    // console.log("======================================================================")
+    // console.log("🚀 ~ time:", time)
+    // console.log("🚀 ~ date:", date)
+    // console.log("🚀 ~ newDate:", newDate)
+    // console.log("🚀 ~ timezone offset:", tzOffset)
+    // console.log("🚀 ~ newDate,toString():", newDate.toString())
+    // console.log("======================================================================")
+    
+    const dateTime = ymdAndTime(newDate);       
+    console.log("🚀 ~ file: Slideover.jsx:184 ~ getDatePreparedForDatabase ~ dateTime:", dateTime)
+    // let dateTimeParts = dateTime.split(/[- :]/) // regular expression split that creates array with: year, month, day, hour, minutes, seconds values
+    // dateTimeParts[1]-- // monthIndex begins with 0 for January and ends with 11 for December so we need to decrement by one
+    // const dateObject = new Date(...dateTimeParts)
 
-      
-    let dateTimeParts = dateTime.split(/[- :]/) // regular expression split that creates array with: year, month, day, hour, minutes, seconds values
-    dateTimeParts[1]-- // monthIndex begins with 0 for January and ends with 11 for December so we need to decrement by one
-    const dateObject = new Date(...dateTimeParts)
-    return dateObject
+    return dateTime
   }
 
   const onSubmit = async (data) => {
     
-    const starttime = getDatePreparedForDatabase(moment(currentDate.date).toDate(), data.starttime);
-    const endtime = getDatePreparedForDatabase(moment(currentDate.date).toDate(),  data.endtime)
-    const date = getDatePreparedForDatabase(moment(currentDate.date).toDate(), "00:00AM")
-    const createDateObject = new Date()
+    console.log("🚀 ~ file: Slideover.jsx:194 ~ onSubmit ~ currentDate.date, data.starttime:", currentDate.date, data.starttime)
+    
+    const starttime = getDatePreparedForDatabase(currentDate.date, data.starttime);
+    const endtime = getDatePreparedForDatabase(currentDate.date,  data.endtime)
+    const date = getDatePreparedForDatabase(currentDate.date, "00:00")
+    const createDateObject = yearMonthDateFormat(new Date())
     const createDate = getDatePreparedForDatabase(
       createDateObject,
       moment(createDateObject).format('HH:mm')
@@ -187,6 +208,13 @@ export default function Slideover({
       description = 'this is a description',
       pid = null,
     } = data
+
+    // console.log("======================================================================")
+    // console.log("🚀 ~ starttime:", starttime)
+    // console.log("🚀 ~ endtime:", endtime)
+    // console.log("🚀 ~ date:", date)
+    // console.log("🚀 ~ createDate:", createDate)
+    // console.log("======================================================================")
     
     const payload = {
       starttime,

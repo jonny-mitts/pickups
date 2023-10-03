@@ -1,6 +1,6 @@
 // app/api/pickup/route.js 👈🏽
 
-import Server, { NextResponse } from 'next/server'
+import Server from 'next/server';
 import createConnection from '@/utils/connection';
 
 // To handle a GET request to /api
@@ -13,6 +13,11 @@ export async function GET(request) {
   
   // simple query
   const [rows, fields] = await connection.execute('SELECT * FROM `pickups_pickup`');
+
+  const covertedData = rows.map(row => {
+     console.log(JSON.stringify(row));
+  })
+
   connection.destroy()
   return await Server.NextResponse.json(
     { data: rows },

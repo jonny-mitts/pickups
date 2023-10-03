@@ -1,11 +1,11 @@
 // app/api/pickup/route.js 👈🏽
 
-import Server, { NextResponse } from 'next/server'
+import Server from 'next/server';
 import createConnection from '@/utils/connection';
 
 const convertJSDateTODateTime = (d) => {
-    const convertedDate = (new Date(d)).toISOString().slice(0, 19).split("T");
-    return convertedDate;
+    // const convertedDate = (new Date(d)).toISOString().slice(0, 19).split("T");
+    return d;
 }
 
 export async function PATCH(req) {
