@@ -1,8 +1,11 @@
-import { Inter, Lexend } from 'next/font/google'
-import clsx from 'clsx'
-import Provider from '@/components/Provider'
 
-import '@/styles/tailwind.css'
+import { Inter, Lexend } from 'next/font/google';
+import clsx from 'clsx';
+import Provider from '@/components/Provider';
+import { StyledEngineProvider } from '@mui/material/styles';
+import '@/styles/tailwind.css';
+
+
 
 export const metadata = {
   title: {
@@ -36,7 +39,9 @@ export default function RootLayout({ children }) {
       )}
     >
       <body className="flex h-full flex-col">
-        <Provider>{children}</Provider>
+        <StyledEngineProvider injectFirst>
+          <Provider>{children}</Provider>
+        </StyledEngineProvider>
       </body>
     </html>
   )
